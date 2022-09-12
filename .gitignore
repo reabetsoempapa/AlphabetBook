@@ -53,7 +53,7 @@ tests/proguard-project.txt
 .idea/*
 !.idea/codeStyles/
 build
-/gradle.properties
+
 .attach_pid*
 fastlane/Fastfile
 *.hprof
