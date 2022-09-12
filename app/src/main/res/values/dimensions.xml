@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- sizes -->
+    <dimen name="bttn_paddingX">8dp</dimen>
+    <dimen name="bttn_paddingY">16dp</dimen>
+    <dimen name="bttn_corner_radius">2dp</dimen>
+    <dimen name="layout_margin">20dp</dimen>
+    <dimen name="activity_bar_height">56dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_padding">12dp</dimen>
+    <dimen name="item_spacing">12dp</dimen>
+    <dimen name="grid_view_spacing">24dp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="bttn_text_fontsize">16sp</dimen>
+    <dimen name="text_fontsize">16sp</dimen>
+    <dimen name="page_title_fontsize">20sp</dimen>
+    <dimen name="overview_fontsize">18sp</dimen>
+</resources>
