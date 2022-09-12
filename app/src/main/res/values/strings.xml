@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Alphabet Book</string>
-    <string name="bttn_prev">Previous</string>
-    <string name="bttn_next">Next</string>
-    <string name="bttn_back">Back</string>
-    <string name="action_bar">Action Bar</string>
-    <string name="nav_bar">Navigation Bar</string>
+    <string name="bttn_prev_str">Previous</string>
+    <string name="bttn_next_str">Next</string>
+    <string name="bttn_back_str">Back</string>
+    <string name="bttn_first_page_str">First Page</string>
+    <string name="bttn_last_page_str">Last Page</string>
+    <string name="bttn_back_lower_str">back</string>
+    <string name="bttn_overview_str">Overview</string>
+    <string name="action_bar_str">Action Bar</string>
+    <string name="nav_bar_str">Navigation Bar</string>
+    <string name="settings_str">Settings</string>
+    <string name="contact_str">Contact</string>
+    <string name="exit_app_str">Exit</string>
 </resources>
