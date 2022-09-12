@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Alphabet Book</string>
+    <string name="bttn_prev">Previous</string>
+    <string name="bttn_next">Next</string>
+    <string name="bttn_back">Back</string>
+    <string name="action_bar">Action Bar</string>
+    <string name="nav_bar">Navigation Bar</string>
 </resources>
