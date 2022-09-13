@@ -1,6 +1,8 @@
 package com.example.alphabetbook.model
 
-data class AlphabetGridViewModal(
+import java.io.Serializable
+
+data class AlphabetGridViewModal (
     val alphabetName: String,
     val alphabetImage: Int
-)
+) : Serializable
