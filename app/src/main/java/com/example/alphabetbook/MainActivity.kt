@@ -1,5 +1,6 @@
 package com.example.alphabetbook
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Y", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Z", R.drawable.ic_insert_photo) )
 
+
         // on below line we are setting adapter to our grid view
         val Adapter = AlphabetGVController(alphabetList, this@MainActivity)
 
@@ -62,6 +64,10 @@ class MainActivity : AppCompatActivity() {
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             // inside on click method we are simply displaying
             // a toast message with course name.
+            var intent = Intent(this, alphabet_screen::class.java)
+            intent.putExtra("object",alphabetList[position])
+
+            startActivity(intent)
             Toast.makeText(
                 applicationContext, alphabetList[position].alphabetName + " selected",
                 Toast.LENGTH_SHORT
