@@ -1,11 +1,11 @@
 package com.example.alphabetbook
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.alphabetbook.model.AlphabetGridViewModal
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Y", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Z", R.drawable.ic_insert_photo) )
 
+        //trying to pass the arraylist to alphabetScreenPage so I can reference the array in alphabetScreen
+        //startActivity(intent)
+
 
         // on below line we are setting adapter to our grid view
         val Adapter = AlphabetGVController(alphabetList, this@MainActivity)
@@ -66,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             // a toast message with course name.
             var intent = Intent(this, alphabet_screen::class.java)
             intent.putExtra("object",alphabetList[position])
+            intent.putExtra("lists", alphabetList as ArrayList<AlphabetGridViewModal>)
+
+
+
 
             startActivity(intent)
             Toast.makeText(
