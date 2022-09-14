@@ -67,12 +67,16 @@ class MainActivity : AppCompatActivity() {
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             // inside on click method we are simply displaying
             // a toast message with course name.
+
+
+           // intent.putExtra("object",alphabetList[position]) this was okay
+
+            //intent.putExtra("lists", alphabetList as ArrayList<AlphabetGridViewModal>)
+            val bundle = Bundle()
+            bundle.putSerializable("object", alphabetList[position])
+            bundle.putSerializable("list", alphabetList as  ArrayList<AlphabetGridViewModal>)
             var intent = Intent(this, alphabet_screen::class.java)
-            intent.putExtra("object",alphabetList[position])
-            intent.putExtra("lists", alphabetList as ArrayList<AlphabetGridViewModal>)
-
-
-
+            intent.putExtras(bundle)
 
             startActivity(intent)
             Toast.makeText(
