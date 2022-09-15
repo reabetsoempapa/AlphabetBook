@@ -1,11 +1,11 @@
 package com.example.alphabetbook
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.alphabetbook.model.AlphabetGridViewModal
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Y", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Z", R.drawable.ic_insert_photo) )
 
+        //trying to pass the arraylist to alphabetScreenPage so I can reference the array in alphabetScreen
+        //startActivity(intent)
+
 
         // on below line we are setting adapter to our grid view
         val Adapter = AlphabetGVController(alphabetList, this@MainActivity)
@@ -64,8 +67,18 @@ class MainActivity : AppCompatActivity() {
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             // inside on click method we are simply displaying
 
-            val intent = Intent(this, alphabet_screen::class.java)
-            intent.putExtra("object",alphabetList[position])
+            // a toast message with course name.
+
+
+           // intent.putExtra("object",alphabetList[position]) this was okay
+
+            //intent.putExtra("lists", alphabetList as ArrayList<AlphabetGridViewModal>)
+            val bundle = Bundle()
+            bundle.putSerializable("object", alphabetList[position])
+            bundle.putSerializable("list", alphabetList as  ArrayList<AlphabetGridViewModal>)
+            var intent = Intent(this, alphabet_screen::class.java)
+            intent.putExtras(bundle)
+
 
             startActivity(intent)
             Toast.makeText(
