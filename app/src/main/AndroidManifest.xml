@@ -24,7 +24,7 @@
             android:name="com.example.alphabetbook.action_bar"
             android:exported="false" />
         <activity
-            android:name="com.example.alphabetbook.alphabet_screen"
+            android:name="com.example.alphabetbook.AlphabetScreenActivity"
             android:exported="false" />
         <activity
             android:name="com.example.alphabetbook.MainActivity"
