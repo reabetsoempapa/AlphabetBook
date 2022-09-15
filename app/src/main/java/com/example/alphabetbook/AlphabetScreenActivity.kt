@@ -18,10 +18,10 @@ class alphabet_screen : AppCompatActivity() {
         val lists = bundle!!.getSerializable("object")
         val alphabet = bundle!!.getSerializable("list")
 
-        val  aButtonClicked = findViewById<Button>(R.id.a_button) as Button
-        val nextButtonClicked = findViewById<Button>(R.id.next_button) as Button
+        val  firstPageButton = findViewById<Button>(R.id.first_activity_button) as Button
+        val nextPageButton = findViewById<Button>(R.id.next_activity_button) as Button
 
-        aButtonClicked.setOnClickListener {
+        firstPageButton.setOnClickListener {
 
            var intent = Intent(this, MainActivity::class.java)
 
@@ -30,7 +30,7 @@ class alphabet_screen : AppCompatActivity() {
 
            // startActivity(intent)
         }
-        nextButtonClicked.setOnClickListener {
+        nextPageButton.setOnClickListener {
 
         }
 
