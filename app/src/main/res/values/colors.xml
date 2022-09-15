@@ -10,9 +10,10 @@
 
     <!-- Custom Color Scheme -->
     <color name="green_color">#FF3EC70B</color>
+    <color name="dark_green_color">#2C5F2D</color>
     <color name="yellow_color">#FFF7EC09</color>
     <color name="red_color">#FFEB4747</color>
-    <color name="dark_blue_color">#FF332FD0</color>
+    <color name="dark_blue_color">#FF195190</color>
     <color name="light_blue_color">#FF4D96FF</color>
     <color name="pink_color">#FFF07DEA</color>
     <color name="white_color">#FFF9F9F9</color>

@@ -18,7 +18,7 @@ internal class AlphabetGVController(
 
     private var layoutInflater: LayoutInflater? = null
     private lateinit var alphabetTV: TextView
-    private lateinit var alphabetIV: ImageView
+    //private lateinit var alphabetIV: ImageView
 
     override fun getCount(): Int {
         return alphabetList.size
@@ -52,10 +52,10 @@ internal class AlphabetGVController(
 
         // on below line we are initializing our alphabet image view
         // and alphabet text view with their ids.
-        alphabetIV = convertView!!.findViewById(R.id.alphabetGV_imageView)
+        //alphabetIV = convertView!!.findViewById(R.id.alphabetGV_imageView)
         alphabetTV = convertView!!.findViewById(R.id.alphabetGV_textView)
         // on below line we are setting image for our alphabet image view.
-        alphabetIV.setImageResource(alphabetList.get(position).alphabetImage)
+        //alphabetIV.setImageResource(alphabetList.get(position).alphabetImage)
         // on below line we are setting text in our alphabet text view.
         alphabetTV.setText(alphabetList.get(position).alphabetName)
         // at last we are returning our convert view.

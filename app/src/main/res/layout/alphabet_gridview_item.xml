@@ -2,27 +2,24 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    app:strokeWidth="2dp"
+    android:layout_gravity="center"
     >
-
-    <ImageView
-        android:id="@+id/alphabetGV_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/alphabetGV_textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:textAlignment="center"
-        android:textSize="32sp"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/grid_view_fontsize"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:fontFamily="@font/coming_soon"
+        android:drawablePadding="0dp"
+        android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alphabetGV_imageView" />
