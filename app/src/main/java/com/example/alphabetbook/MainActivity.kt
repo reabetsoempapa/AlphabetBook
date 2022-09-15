@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         alphabetGV = findViewById(R.id.overview_gridview)
         alphabetList = ArrayList<AlphabetGridViewModal>()
 
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("A", R.drawable.ic_insert_photo) )
+        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Aa", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("B", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("C", R.drawable.ic_insert_photo) )
         (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("D", R.drawable.ic_insert_photo) )
@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         // click listener for our grid view.
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             // inside on click method we are simply displaying
+
             // a toast message with course name.
 
 
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             bundle.putSerializable("list", alphabetList as  ArrayList<AlphabetGridViewModal>)
             var intent = Intent(this, alphabet_screen::class.java)
             intent.putExtras(bundle)
+
 
             startActivity(intent)
             Toast.makeText(

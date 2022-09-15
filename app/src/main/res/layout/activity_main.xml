@@ -11,28 +11,33 @@
     <ActionMenuView
         android:id="@+id/actionMenuView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:padding="10dp"
+        android:layout_height="@dimen/activity_bar_height"
         android:gravity="left"
-        android:background="@color/purple_700"
+        android:background="@color/light_blue_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/layout_margin">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back" />
-        <TextView
-            android:id="@+id/actionbar_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="#febfeb"
-            android:text="Action Bar"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="@string/app_name"
+            android:textSize="@dimen/overview_fontsize"
+            android:fontFamily="@font/kids_space"
+            android:textColor="@color/white_color"
+            />
+
+        <Button
+            android:id="@+id/bttn_main_more_items"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:drawableEnd="@drawable/ic_outline_more_vert_24"
+            android:drawableTint="@color/white_color"
+            android:background="@android:color/transparent"
+            />
+
 
     </ActionMenuView>
 
@@ -40,28 +45,15 @@
         android:id="@+id/overview_gridview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="0dp"
+        android:layout_margin="6dp"
+        android:horizontalSpacing="16dp"
         android:numColumns="3"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/overview_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionMenuView" />
+        android:padding="@dimen/layout_margin"
+        android:verticalSpacing="16dp"
 
-    <TextView
-        android:id="@+id/overview_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:textColor="@color/cardview_light_background"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:background="@color/purple_700"
-        android:text="We'll have some buttons here"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/actionMenuView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

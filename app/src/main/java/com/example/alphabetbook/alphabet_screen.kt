@@ -34,8 +34,5 @@ class alphabet_screen : AppCompatActivity() {
 
         }
 
-
-
-
     }
 }
