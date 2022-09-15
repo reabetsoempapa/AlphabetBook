@@ -17,7 +17,7 @@
         android:textSize="@dimen/grid_view_fontsize"
         android:gravity="center"
         android:layout_gravity="center"
-        android:fontFamily="@font/coming_soon"
+        android:fontFamily="@font/kids_space"
         android:drawablePadding="0dp"
         android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
