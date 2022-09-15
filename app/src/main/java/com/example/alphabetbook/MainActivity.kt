@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.GridView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.alphabetbook.model.AlphabetGridViewModal
 
@@ -12,79 +11,51 @@ class MainActivity : AppCompatActivity() {
 
     // on below line we are creating
     // variables for grid view and course list
-    lateinit var alphabetGV: GridView
-    lateinit var alphabetList: List<AlphabetGridViewModal>
+    private lateinit var alphabetGV: GridView
+    private lateinit var alphabetList: List<AlphabetGridViewModal>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Remove Action Bar
+        // Remove Default Action Bar
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
 
         alphabetGV = findViewById(R.id.overview_gridview)
-        alphabetList = ArrayList<AlphabetGridViewModal>()
+        alphabetList = ArrayList()
 
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Aa", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("B", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("C", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("D", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("E", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("F", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("G", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("H", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("I", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("J", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("K", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("L", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("M", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("N", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("O", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("P", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Q", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("R", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("S", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("T", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("U", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("V", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("W", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("X", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Y", R.drawable.ic_insert_photo) )
-        (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal("Z", R.drawable.ic_insert_photo) )
+        var startChar = 'A'
+        val endChar = 'Z'
 
-        //trying to pass the arraylist to alphabetScreenPage so I can reference the array in alphabetScreen
-        //startActivity(intent)
+        while (startChar <= endChar) {
 
+            val str : String = startChar.toString()
+            val lower : String = str.lowercase()
+            val id = resources.getIdentifier(lower, "drawable", this.packageName)
+            (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal(startChar.toString(), id))
+            startChar++
 
-        // on below line we are setting adapter to our grid view
-        val Adapter = AlphabetGVController(alphabetList, this@MainActivity)
+        }
 
-        alphabetGV.setAdapter(Adapter)
-        // on below line we are adding on item
-        // click listener for our grid view.
+        val adapter = AlphabetGVController(alphabetList, this@MainActivity)
+        alphabetGV.adapter = adapter
+
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            // inside on click method we are simply displaying
 
-            // a toast message with course name.
-
-
-           // intent.putExtra("object",alphabetList[position]) this was okay
-
-            //intent.putExtra("lists", alphabetList as ArrayList<AlphabetGridViewModal>)
             val bundle = Bundle()
+            val letter : String = alphabetList[position].alphabetName
+
             bundle.putSerializable("object", alphabetList[position])
+            bundle.putString("letter", letter)
             bundle.putSerializable("list", alphabetList as  ArrayList<AlphabetGridViewModal>)
-            var intent = Intent(this, alphabet_screen::class.java)
+            bundle.putInt("intPos", position)
+
+            val intent = Intent(this, AlphabetScreenActivity::class.java)
+
             intent.putExtras(bundle)
-
-
             startActivity(intent)
-            Toast.makeText(
-                applicationContext, alphabetList[position].alphabetName + " selected",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
 }
