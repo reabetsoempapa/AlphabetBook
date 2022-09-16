@@ -24,10 +24,10 @@
             android:name="com.example.alphabetbook.action_bar"
             android:exported="false" />
         <activity
-            android:name="com.example.alphabetbook.AlphabetScreenActivity"
+            android:name="com.example.alphabetbook.view.AlphabetScreenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.alphabetbook.MainActivity"
+            android:name="com.example.alphabetbook.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

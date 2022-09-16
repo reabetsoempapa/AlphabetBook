@@ -1,10 +1,12 @@
-package com.example.alphabetbook
+package com.example.alphabetbook.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.alphabetbook.presenter.AlphabetGVController
+import com.example.alphabetbook.R
 import com.example.alphabetbook.model.AlphabetGridViewModal
 
 class MainActivity : AppCompatActivity() {

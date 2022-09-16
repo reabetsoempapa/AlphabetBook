@@ -1,4 +1,4 @@
-package com.example.alphabetbook
+package com.example.alphabetbook.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.alphabetbook.R
 import com.example.alphabetbook.model.AlphabetGridViewModal
 
 class AlphabetScreenActivity : AppCompatActivity() {
@@ -70,7 +71,7 @@ class AlphabetScreenActivity : AppCompatActivity() {
 
         overviewButton.setOnClickListener {
             integerPos = 0
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
