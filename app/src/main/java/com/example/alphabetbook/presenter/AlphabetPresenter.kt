@@ -1,15 +1,19 @@
 package com.example.alphabetbook.presenter
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import com.example.alphabetbook.model.ImageRepository
+import com.example.alphabetbook.view.MainActivity
 
 class AlphabetPresenter ( imageView : ImageView , context : Context){
-
-    private var imageRepo : ImageRepository
+    
     private var imageView : ImageView
+    private var currentIndex : Int
+    private lateinit var images : ArrayList<Int>
 
     private lateinit var nextButton : Button
     private lateinit var prevButton : Button
@@ -18,8 +22,8 @@ class AlphabetPresenter ( imageView : ImageView , context : Context){
     private lateinit var overViewButton : Button
 
     init {
-        imageRepo = ImageRepository( context )
         this.imageView = imageView
+        currentIndex = 0
     }
 
     public fun setButtons( nextButton : Button , prevButton : Button ,
@@ -29,23 +33,51 @@ class AlphabetPresenter ( imageView : ImageView , context : Context){
         this.prevButton = prevButton
         this.firstButton = firstButton
         this.lastButton = lastButton
+        this.overViewButton = overViewButton
 
     }
 
-    public fun onClickNext( position : Int ) {
+    public fun onClickNext(i: Int) {
+        currentIndex++
+        setBitMapToImageView( currentIndex )
+        loadButtons( currentIndex )
 
     }
 
-    public fun onClickPrevious( imageView : ImageView) {
-
+    public fun onClickPrevious( position : Int  ) {
+        currentIndex--
+        setBitMapToImageView( currentIndex )
+        loadButtons( currentIndex )
     }
 
-    public fun onClickFirst( imageView : ImageView) {
-
+    public fun onClickFirst( position : Int  ) {
+        currentIndex = 0
+        setBitMapToImageView( currentIndex )
+        loadButtons( currentIndex )
     }
 
-    public fun onClickLast( imageView : ImageView) {
+    public fun onClickLast( position : Int  ) {
+        currentIndex = 25
+        setBitMapToImageView( currentIndex )
+        loadButtons( currentIndex )
+    }
 
+    public fun onClickOverView() {
+        currentIndex = 0
+    }
+
+    public fun onGridItemClick ( position : Int ) {
+        currentIndex = position
+        setBitMapToImageView( position )
+        loadButtons( currentIndex )
+    }
+
+    private fun setBitMapToImageView(position : Int ) {
+        imageView.setImageResource( images[position] )
+    }
+
+    fun setImageRepository ( images : ArrayList<Int> ) {
+        this.images = images
     }
 
     private fun loadButtons( position : Int ){
