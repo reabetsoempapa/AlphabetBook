@@ -1,13 +1,14 @@
 package com.example.alphabetbook.view
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.alphabetbook.R
-import com.example.alphabetbook.model.AlphabetGridViewModal
+import com.example.alphabetbook.presenter.AlphabetPresenter
+import com.example.alphabetbook.presenter.MainAdapter
 
 class AlphabetScreenActivity : AppCompatActivity() {
 
@@ -24,7 +25,6 @@ class AlphabetScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alphabet_screen)
-
         // View
         imageView = findViewById<ImageView>(R.id.image_view)
 
@@ -35,66 +35,41 @@ class AlphabetScreenActivity : AppCompatActivity() {
         lastButton = findViewById<Button>(R.id.last_activity_button)
         overviewButton = findViewById<Button>(R.id.overview_button)
 
+        // Set the Alphabet presenter for this
+        val presenter : AlphabetPresenter = AlphabetPresenter( imageView , this )
+
+        presenter.setButtons( nextButton, prevButton, firstButton, lastButton, overviewButton )
+
         val bundle = intent.extras
-        val lists = bundle!!.getSerializable("object") as AlphabetGridViewModal
 
-        val id = resources.getIdentifier(lists.alphabetName.lowercase(),"drawable",packageName)
-        imageView.setImageResource(id)
+        val integerPos = bundle?.getInt("intPos")
+        val images : ArrayList<Int> = bundle!!.getIntegerArrayList("images") as ArrayList<Int>
+        presenter.setImageRepository(images)
 
-        val alphabets = bundle.getSerializable("list") as ArrayList<AlphabetGridViewModal>
-        var integerPos = bundle.getInt("intPos")
-        loadButtons(integerPos)
+        presenter.onGridItemClick( integerPos as Int )
 
         prevButton.setOnClickListener {
-            integerPos--
-            imageView.setImageResource(alphabets[integerPos].alphabetImage)
-            loadButtons(integerPos)
+            presenter.onClickPrevious(integerPos as Int)
         }
 
         nextButton.setOnClickListener {
-            integerPos++
-            imageView.setImageResource(alphabets[integerPos].alphabetImage)
-            loadButtons(integerPos)
+            presenter.onClickNext(integerPos as Int)
         }
 
         firstButton.setOnClickListener {
-            integerPos = 0
-            imageView.setImageResource(alphabets[integerPos].alphabetImage)
-            loadButtons(integerPos)
+            presenter.onClickFirst(integerPos as Int)
         }
 
         lastButton.setOnClickListener {
-            integerPos = 25
-            imageView.setImageResource(alphabets[integerPos].alphabetImage)
-            loadButtons(integerPos)
+            presenter.onClickLast(integerPos as Int)
         }
 
         overviewButton.setOnClickListener {
-            integerPos = 0
+            presenter.onClickOverView()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
     }
 
-    private fun loadButtons( position : Int ){
-
-        if ( position == 0) {
-            prevButton.visibility = View.INVISIBLE
-            firstButton.visibility = View.INVISIBLE
-        }
-        else {
-            prevButton.visibility = View.VISIBLE
-            firstButton.visibility = View.VISIBLE
-        }
-
-        if( position == 25 ){
-            nextButton.visibility = View.INVISIBLE
-            lastButton.visibility = View.INVISIBLE
-        }
-        else{
-            nextButton.visibility = View.VISIBLE
-            lastButton.visibility = View.VISIBLE
-        }
-    }
 }

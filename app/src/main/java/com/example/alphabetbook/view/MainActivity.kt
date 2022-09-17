@@ -2,44 +2,36 @@ package com.example.alphabetbook.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.AdapterView
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.alphabetbook.presenter.AlphabetGVController
 import com.example.alphabetbook.R
 import com.example.alphabetbook.model.AlphabetGridViewModal
+import com.example.alphabetbook.presenter.AlphabetGVController
+import com.example.alphabetbook.presenter.MainAdapter
+import java.io.Serializable
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Serializable {
 
     // on below line we are creating
     // variables for grid view and course list
     private lateinit var alphabetGV: GridView
-    private lateinit var alphabetList: List<AlphabetGridViewModal>
+    private var alphabetList: List<AlphabetGridViewModal> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        alphabetGV = findViewById(R.id.overview_gridview)
+        val mainAdapter : MainAdapter = MainAdapter( this, alphabetGV )
 
         // Remove Default Action Bar
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
 
-        alphabetGV = findViewById(R.id.overview_gridview)
-        alphabetList = ArrayList()
-
-        var startChar = 'A'
-        val endChar = 'Z'
-
-        while (startChar <= endChar) {
-
-            val str : String = startChar.toString()
-            val lower : String = str.lowercase()
-            val id = resources.getIdentifier(lower, "drawable", this.packageName)
-            (alphabetList as ArrayList<AlphabetGridViewModal>).add(AlphabetGridViewModal(startChar.toString(), id))
-            startChar++
-
-        }
+        alphabetList = mainAdapter.getGridViewItems()
 
         val adapter = AlphabetGVController(alphabetList, this@MainActivity)
         alphabetGV.adapter = adapter
@@ -47,13 +39,8 @@ class MainActivity : AppCompatActivity() {
         alphabetGV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
 
             val bundle = Bundle()
-            val letter : String = alphabetList[position].alphabetName
-
-            bundle.putSerializable("object", alphabetList[position])
-            bundle.putString("letter", letter)
-            bundle.putSerializable("list", alphabetList as  ArrayList<AlphabetGridViewModal>)
             bundle.putInt("intPos", position)
-
+            bundle.putIntegerArrayList("images", mainAdapter.getImages() )
             val intent = Intent(this, AlphabetScreenActivity::class.java)
 
             intent.putExtras(bundle)
