@@ -1,9 +1,12 @@
 package com.example.alphabetbook.model
 
+import android.R
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import java.io.Serializable
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.content.res.ResourcesCompat
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
 
 class ImageRepository ( context : Context) {
 
@@ -26,21 +29,25 @@ class ImageRepository ( context : Context) {
 
     fun loadImages(){
 
-        var startChar = 'A'
-        val endChar = 'Z'
+        // Create a coroutine to load the images without blocking the main thread
+        runBlocking {
+            val job = launch {
+                var startChar = 'A'
+                val endChar = 'Z'
 
-        while (startChar <= endChar) {
+                while (startChar <= endChar) {
 
-            val str : String = startChar.toString()
-            val lower : String = str.lowercase()
-            val id = context.resources.getIdentifier(lower, "drawable", context.packageName)
-            images.add(id)
-            startChar++
-            println( "Array size : ${images.size}")
-            println("The bitmap with id : $id for $lower has been created")
+                    val str : String = startChar.toString()
+                    val lower : String = str.lowercase()
+                    val id = context.resources.getIdentifier(lower, "drawable", context.packageName)
+                    images.add(id)
+                    startChar++
+
+                }
+
+                doneLoading = true
+            }
         }
-
-        doneLoading = true
 
     }
 
