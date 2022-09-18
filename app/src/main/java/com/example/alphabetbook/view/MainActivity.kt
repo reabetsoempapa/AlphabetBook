@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.alphabetbook.R
 import com.example.alphabetbook.model.AlphabetGridViewModal
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity(), Serializable {
     // variables for grid view and course list
     private lateinit var alphabetGV: GridView
     private var alphabetList: List<AlphabetGridViewModal> = ArrayList()
+    private var time = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,5 +48,15 @@ class MainActivity : AppCompatActivity(), Serializable {
             intent.putExtras(bundle)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        if ( time + 2500 > System.currentTimeMillis() ) {
+            super.onBackPressed()
+        }
+        else {
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        }
+        time = System.currentTimeMillis()
     }
 }

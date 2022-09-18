@@ -22,6 +22,13 @@ class AlphabetScreenActivity : AppCompatActivity() {
     // Views
     private lateinit var imageView : ImageView
 
+    // Instance Variables
+    private var integerPos = 0
+    private var startPos = 0
+    private var endPos = 0
+    private var skippedToLast = false
+    private lateinit var presenter : AlphabetPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alphabet_screen)
@@ -36,38 +43,62 @@ class AlphabetScreenActivity : AppCompatActivity() {
         overviewButton = findViewById<Button>(R.id.overview_button)
 
         // Set the Alphabet presenter for this
-        val presenter : AlphabetPresenter = AlphabetPresenter( imageView , this )
+        presenter = AlphabetPresenter( imageView , this )
 
         presenter.setButtons( nextButton, prevButton, firstButton, lastButton, overviewButton )
 
         val bundle = intent.extras
 
-        val integerPos = bundle?.getInt("intPos")
+        integerPos = bundle?.getInt("intPos")!!
+        startPos = integerPos
+        endPos = integerPos
         val images : ArrayList<Int> = bundle!!.getIntegerArrayList("images") as ArrayList<Int>
         presenter.setImageRepository(images)
 
         presenter.onGridItemClick( integerPos as Int )
 
         prevButton.setOnClickListener {
-            presenter.onClickPrevious(integerPos as Int)
+            presenter.onClickPrevious(false)
+            endPos--
         }
 
         nextButton.setOnClickListener {
-            presenter.onClickNext(integerPos as Int)
+            presenter.onClickNext()
+            endPos++
         }
 
         firstButton.setOnClickListener {
-            presenter.onClickFirst(integerPos as Int)
+            presenter.onClickFirst()
+            endPos = 0
         }
 
         lastButton.setOnClickListener {
-            presenter.onClickLast(integerPos as Int)
+            presenter.onClickLast()
+            skippedToLast = true
         }
 
         overviewButton.setOnClickListener {
+            startPos = 0
+            endPos = 0
+            integerPos = 0
             presenter.onClickOverView()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+        }
+
+    }
+
+    override fun onBackPressed() {
+
+        if ( ( endPos == 0 ) || ( startPos >= endPos )) {
+            super.onBackPressed()
+        }
+        else if ( skippedToLast ) {
+            presenter.onClickPrevious(true)
+        }
+        else {
+            presenter.onClickPrevious(true)
+            endPos--
         }
 
     }
