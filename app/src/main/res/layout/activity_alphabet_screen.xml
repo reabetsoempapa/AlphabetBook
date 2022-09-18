@@ -19,30 +19,33 @@
 
 
         <Button
-            android:id="@+id/back_button"
+            android:id="@+id/overview_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:drawableLeft="@drawable/ic_bttn_back"
             android:drawableTint="@color/white_color"
-            android:text="@string/bttn_back_lower_str"
             android:textAllCaps="false"
             android:background="@android:color/transparent"
             android:includeFontPadding="false"
             android:textAlignment="center"
             app:iconGravity="textStart"
-            app:iconPadding="0dp"
+            app:iconPadding="8dp"
             />
 
-        <Button
-            android:id="@+id/overview_button"
+        <TextView
+            android:id="@+id/text_view_activity_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:text="@string/bttn_overview_str"
+            android:text="@string/alphabet_page_header"
             android:textAllCaps="false"
             android:includeFontPadding="false"
-            android:backgroundTint="@color/black_color" />
+            android:backgroundTint="@color/black_color"
+            android:textSize="@dimen/overview_fontsize"
+            android:textFontWeight="500"
+            android:textColor="@color/cream_white_color"
+            android:gravity="right"
+            />
 
     </ActionMenuView>
 
