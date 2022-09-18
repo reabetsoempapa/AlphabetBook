@@ -4,8 +4,8 @@
     package="com.example.alphabetbook">
 
     <uses-sdk
-        android:minSdkVersion="27"
-        android:targetSdkVersion="31" />
+        android:minSdkVersion="29"
+        android:targetSdkVersion="32" />
 
     <application
         android:allowBackup="true"
