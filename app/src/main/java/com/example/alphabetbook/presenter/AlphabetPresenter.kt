@@ -1,20 +1,31 @@
 package com.example.alphabetbook.presenter
 
+import android.R
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import com.example.alphabetbook.model.ImageRepository
-import com.example.alphabetbook.view.MainActivity
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
 
 class AlphabetPresenter ( imageView : ImageView , context : Context){
     
     private var imageView : ImageView
     private var currentIndex : Int
+    private var startPos = 0
+    private var endPos = 0
+    private var skippedToLast = false
+    private var doneLoading = false
     private lateinit var images : ArrayList<Int>
+    private lateinit var bitImages : ArrayList<Bitmap>
 
+    // activity context
+    private lateinit var context : Context
+
+    // Buttons
     private lateinit var nextButton : Button
     private lateinit var prevButton : Button
     private lateinit var firstButton : Button
@@ -22,12 +33,14 @@ class AlphabetPresenter ( imageView : ImageView , context : Context){
     private lateinit var overViewButton : Button
 
     init {
+        this.context = context
         this.imageView = imageView
         currentIndex = 0
+        bitImages = ArrayList<Bitmap>()
+
     }
 
-    public fun setButtons( nextButton : Button , prevButton : Button ,
-                           firstButton : Button , lastButton : Button , overViewButton: Button) {
+    fun setButtons( nextButton : Button , prevButton : Button , firstButton : Button , lastButton : Button , overViewButton: Button) {
 
         this.nextButton = nextButton
         this.prevButton = prevButton
@@ -37,43 +50,102 @@ class AlphabetPresenter ( imageView : ImageView , context : Context){
 
     }
 
-    public fun onClickNext(i: Int) {
+    fun onClickNext() {
         currentIndex++
-        setBitMapToImageView( currentIndex )
-        loadButtons( currentIndex )
+        endPos++
+        setBitMapToImageView( endPos )
+        loadButtons( endPos )
 
     }
 
-    public fun onClickPrevious( position : Int  ) {
-        currentIndex--
-        setBitMapToImageView( currentIndex )
-        loadButtons( currentIndex )
+    fun onClickPrevious( backPressed : Boolean ) {
+
+
+        if ( skippedToLast ) {
+            skippedToLast = false
+            if ( backPressed ) {
+                currentIndex = endPos
+                setBitMapToImageView( endPos )
+                loadButtons( endPos )
+            }
+            else {
+                currentIndex--
+                endPos--
+                startPos = currentIndex
+                setBitMapToImageView( currentIndex )
+                loadButtons( currentIndex )
+            }
+
+        }
+        else {
+            currentIndex--
+            endPos--
+            setBitMapToImageView( currentIndex )
+            loadButtons( currentIndex )
+        }
+
     }
 
-    public fun onClickFirst( position : Int  ) {
+    fun onClickFirst() {
         currentIndex = 0
+        startPos = 0
+        endPos = 0
+        skippedToLast = false
         setBitMapToImageView( currentIndex )
         loadButtons( currentIndex )
     }
 
-    public fun onClickLast( position : Int  ) {
+    fun onClickLast() {
         currentIndex = 25
+        skippedToLast = true
         setBitMapToImageView( currentIndex )
         loadButtons( currentIndex )
     }
 
-    public fun onClickOverView() {
+    fun onClickOverView() {
         currentIndex = 0
+        startPos = 0
+        endPos = 0
+        skippedToLast = false
     }
 
-    public fun onGridItemClick ( position : Int ) {
+    fun onGridItemClick ( position : Int ) {
         currentIndex = position
+        startPos = position
+        endPos = position
         setBitMapToImageView( position )
         loadButtons( currentIndex )
     }
 
     private fun setBitMapToImageView(position : Int ) {
-        imageView.setImageResource( images[position] )
+        setImageBitMapToImageView(position)
+        // imageView.setImageResource( images[position] )
+    }
+
+    private fun setImageBitMapToImageView( position : Int ) {
+        runBlocking {
+            val job = launch {
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+
+                val image : Bitmap = BitmapFactory.decodeResource( context.getResources(), images[position] )
+                imageView.setImageBitmap(image)
+
+            }
+        }
+    }
+
+    private fun loadImageBitMaps() {
+
+        runBlocking {
+            for ( id : Int in images ) {
+                val image : Bitmap = BitmapFactory.decodeResource( context.getResources(), id )
+                bitImages.add(image)
+                println("Done Loading A mf")
+            }
+            println("Done Loading mf")
+            doneLoading = true
+        }
     }
 
     fun setImageRepository ( images : ArrayList<Int> ) {
